@@ -11,12 +11,13 @@ import java.util.concurrent.Callable;
         mixinStandardHelpOptions = true,
         version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable {
+public class App implements Callable<Object> {
 
     @Option(names = {"-f", "--format"},
             paramLabel = "format",
+            defaultValue = "stylish",
             description = "output format [default: stylish]")
-    private String format = "stylish";
+    private String format;
 
     @Parameters(paramLabel = "filepath1",
             description = "path to first file")
