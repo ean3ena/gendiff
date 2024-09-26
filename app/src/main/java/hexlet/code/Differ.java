@@ -1,42 +1,65 @@
 package hexlet.code;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.TreeSet;
 
 public class Differ {
+
     public static String generate(String filepath1, String filepath2) throws Exception {
         return generate(filepath1, filepath2, "stylish");
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
 
-        String contentFile1 = getFileData(filepath1);
-        String contentFile2 = getFileData(filepath2);
+        Map<String, Object> mapFileContent1 = Parser.parse(filepath1);
+        Map<String, Object> mapFileContent2 = Parser.parse(filepath2);
 
-        var mapContentFile1 = contentFileToMap(contentFile1);
-        var mapContentFile2 = contentFileToMap(contentFile2);
+        List<Map<String, Object>> diff = getDiff(mapFileContent1, mapFileContent2);
 
-        return mapContentFile1.toString() + "\n" + mapContentFile2.toString();
+        return Formatter.format(diff, format);
     }
 
-    public static String getFileData(String filepath) throws Exception {
+    public static List<Map<String, Object>> getDiff(Map<String, Object> mapFile1, Map<String, Object> mapFile2) {
 
-        Path path = Paths.get(filepath).toAbsolutePath().normalize();
-        if (!Files.exists(path)) {
-            throw new Exception("Файл '" + path + "' не существует");
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        var allSortedKeys = new TreeSet<>(mapFile1.keySet());
+        allSortedKeys.addAll(mapFile2.keySet());
+
+        for (var key : allSortedKeys) {
+            if (!mapFile1.containsKey(key)) {
+                addElementInResult(result, "+", key, mapFile2.get(key));
+            } else if (!mapFile2.containsKey(key)) {
+                addElementInResult(result, "-", key, mapFile1.get(key));
+            } else {
+
+                var value1 = mapFile1.get(key);
+                var value2 = mapFile2.get(key);
+
+                if (value1.equals(value2)) {
+                    addElementInResult(result, " ", key, value1);
+                } else {
+                    addElementInResult(result, "-", key, value1);
+                    addElementInResult(result, "+", key, value2);
+                }
+            }
         }
 
-        return Files.readString(path);
+        return result;
     }
 
-    public static Map<String, Object> contentFileToMap(String contentFile) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
+    public static void addElementInResult(List<Map<String, Object>> resultList, String status, String key, Object value) {
 
-        return mapper.readValue(contentFile, new TypeReference<Map<String, Object>>(){});
+        var mapElement = new HashMap<String, Object>();
+
+        mapElement.put("status", status);
+        mapElement.put("key", key);
+        mapElement.put("value", value);
+
+        resultList.add(mapElement);
+
     }
 }
