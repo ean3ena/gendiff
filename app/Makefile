@@ -28,7 +28,7 @@ report:
 	./gradlew jacocoTestReport
 
 lint:
-	cd app && ./gradlew checkstyleMain
+	./gradlew checkstyleMain
 
 check-deps:
 	./gradlew dependencyUpdates -Drevision=release
