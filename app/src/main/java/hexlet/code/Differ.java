@@ -51,7 +51,8 @@ public class Differ {
         return result;
     }
 
-    public static void addElementInResult(List<Map<String, Object>> resultList, String status, String key, Object value) {
+    public static void addElementInResult(List<Map<String, Object>> resultList,
+                                          String status, String key, Object value) {
 
         var mapElement = new HashMap<String, Object>();
 

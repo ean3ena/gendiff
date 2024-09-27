@@ -29,6 +29,6 @@ public class Parser {
     public static Map<String, Object> parseJson(String fileContent) throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(fileContent, new TypeReference<>(){});
+        return mapper.readValue(fileContent, new TypeReference<>() { });
     }
 }
