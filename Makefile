@@ -1,38 +1,38 @@
 .DEFAULT_GOAL := build-run
 
 setup:
-	make -C setup
+	make -C app setup
 
 clean:
-	make -C clean
+	make -C app clean
 
 build:
-	make -C build
+	make -C app build
 
 install:
-	make -C install
+	make -C app install
 
 run-dist:
-	make -C run-dist
+	make -C app run-dist
 
 preset:
-	make -C preset
+	make -C app preset
 
 run:
-	make -C run
+	make -C app run
 
 test:
-	make -C test
+	make -C app test
 
 report:
-	make -C report
+	make -C app report
 
 lint:
-	make -C lint
+	make -C app lint
 
 check-deps:
-	make -C check-deps
+	make -C app check-deps
 
-build-run: make -C build-run
+build-run: make -C app build-run
 
 .PHONY: build
