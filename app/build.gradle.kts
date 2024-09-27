@@ -28,3 +28,6 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+}
