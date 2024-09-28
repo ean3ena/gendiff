@@ -5,8 +5,10 @@
 
 ## Сравнение файлов
 
-*Сравнение плоских файлов .json*
+#### Сравнение плоских файлов .json
+
 демонстрация - https://asciinema.org/a/3OJUG64YKHCYifJMu9OKGGbvH
 
-*Сравнение плоских файлов .yaml*
-демонстация -
+#### Сравнение плоских файлов .yaml
+
+демонстация - https://asciinema.org/a/jnege7tGp5kelZXEcdcccxXHc
