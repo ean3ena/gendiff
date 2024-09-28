@@ -92,8 +92,8 @@ class AppTest {
         assertEquals(expected1, actual1);
 
         var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.yaml",
-                fixturesDirectoryPath + "file4.yaml"
+                fixturesDirectoryPath + "file3.yml",
+                fixturesDirectoryPath + "file4.yml"
         );
         var expected2 = getExpectedFileContent("stylish34.txt");
         assertEquals(expected2, actual2);
@@ -110,8 +110,8 @@ class AppTest {
         assertEquals(expected1, actual1);
 
         var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.yaml",
-                fixturesDirectoryPath + "file4.yaml",
+                fixturesDirectoryPath + "file3.yml",
+                fixturesDirectoryPath + "file4.yml",
                 "stylish"
         );
         var expected2 = getExpectedFileContent("stylish34.txt");

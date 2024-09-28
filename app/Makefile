@@ -25,7 +25,7 @@ preset-yaml-12:
 	@ ./build/install/app/bin/app  src/test/resources/fixtures/file1.yaml src/test/resources/fixtures/file2.yaml
 
 preset-yaml-34:
-	@ ./build/install/app/bin/app  src/test/resources/fixtures/file3.yaml src/test/resources/fixtures/file4.yaml
+	@ ./build/install/app/bin/app  src/test/resources/fixtures/file3.yml src/test/resources/fixtures/file4.yml
 
 run:
 	./gradlew run
