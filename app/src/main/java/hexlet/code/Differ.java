@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeSet;
 
 public class Differ {
@@ -39,7 +40,7 @@ public class Differ {
                 var value1 = mapFile1.get(key);
                 var value2 = mapFile2.get(key);
 
-                if (value1.equals(value2)) {
+                if (Objects.equals(value1, value2)) {
                     addElementInResult(result, " ", key, value1);
                 } else {
                     addElementInResult(result, "-", key, value1);

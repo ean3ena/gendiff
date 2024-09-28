@@ -7,11 +7,10 @@ public class Formatter {
 
     public static String format(List<Map<String, Object>> diff, String format) {
 
-        if (format.equals("stylish")) {
-            return formatStylish(diff);
-        }
-
-        return null;
+        return switch (format) {
+            case "stylish" -> formatStylish(diff);
+            default -> null;
+        };
     }
 
     public static String formatStylish(List<Map<String, Object>> diff) {
