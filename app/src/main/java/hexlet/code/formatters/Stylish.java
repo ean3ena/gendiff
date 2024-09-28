@@ -25,7 +25,7 @@ public class Stylish {
                     result.append("  - ").append(key).append(": ").append(value1).append("\n");
                     result.append("  + ").append(key).append(": ").append(value2).append("\n");
                 }
-                default -> {}
+                default -> { }
             }
         }
         result.append("}");

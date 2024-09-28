@@ -23,7 +23,7 @@ public class Plain {
                 case "changed" -> result.append("Property '").append(key)
                         .append("' was updated. From ").append(value1)
                         .append(" to ").append(value2).append("\n");
-                default -> {}
+                default -> { }
             }
         }
         return result.substring(0, result.length() - 1);
