@@ -118,6 +118,44 @@ class AppTest {
         assertEquals(expected2, actual2);
     }
 
+    @Test
+    public void testJsonGenDiffFormatPlain() throws Exception {
+        var actual1 = Differ.generate(
+                fixturesDirectoryPath + "file1.json",
+                fixturesDirectoryPath + "file2.json",
+                "plain"
+        );
+        var expected1 = getExpectedFileContent("plain12.txt");
+        assertEquals(expected1, actual1);
+
+        var actual2 = Differ.generate(
+                fixturesDirectoryPath + "file3.json",
+                fixturesDirectoryPath + "file4.json",
+                "plain"
+        );
+        var expected2 = getExpectedFileContent("plain34.txt");
+        assertEquals(expected2, actual2);
+    }
+
+    @Test
+    public void testYamlGenDiffFormatPlain() throws Exception {
+        var actual1 = Differ.generate(
+                fixturesDirectoryPath + "file1.yaml",
+                fixturesDirectoryPath + "file2.yaml",
+                "plain"
+        );
+        var expected1 = getExpectedFileContent("plain12.txt");
+        assertEquals(expected1, actual1);
+
+        var actual2 = Differ.generate(
+                fixturesDirectoryPath + "file3.yml",
+                fixturesDirectoryPath + "file4.yml",
+                "plain"
+        );
+        var expected2 = getExpectedFileContent("plain34.txt");
+        assertEquals(expected2, actual2);
+    }
+
     private String getExpectedFileContent(String filename) throws Exception {
         Path fixturePath = getFixturePath(filename);
         return Files.readString(fixturePath);

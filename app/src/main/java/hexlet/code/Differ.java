@@ -32,19 +32,18 @@ public class Differ {
 
         for (var key : allSortedKeys) {
             if (!mapFile1.containsKey(key)) {
-                addElementInResult(result, "+", key, mapFile2.get(key));
+                addElementInResult(result, "added",  key, mapFile2.get(key));
             } else if (!mapFile2.containsKey(key)) {
-                addElementInResult(result, "-", key, mapFile1.get(key));
+                addElementInResult(result, "deleted",  key, mapFile1.get(key));
             } else {
 
                 var value1 = mapFile1.get(key);
                 var value2 = mapFile2.get(key);
 
                 if (Objects.equals(value1, value2)) {
-                    addElementInResult(result, " ", key, value1);
+                    addElementInResult(result, "unchanged", key, value1, value2);
                 } else {
-                    addElementInResult(result, "-", key, value1);
-                    addElementInResult(result, "+", key, value2);
+                    addElementInResult(result, "changed", key, value1, value2);
                 }
             }
         }
@@ -53,15 +52,21 @@ public class Differ {
     }
 
     public static void addElementInResult(List<Map<String, Object>> resultList,
-                                          String status, String key, Object value) {
+                                                  String status, String key,
+                                                  Object value1, Object value2) {
 
         var mapElement = new HashMap<String, Object>();
 
         mapElement.put("status", status);
         mapElement.put("key", key);
-        mapElement.put("value", value);
+        mapElement.put("value1", value1);
+        mapElement.put("value2", value2);
 
         resultList.add(mapElement);
+    }
 
+    public static void addElementInResult(List<Map<String, Object>> resultList,
+                                          String status, String key, Object value) {
+        addElementInResult(resultList, status, key, value, null);
     }
 }
