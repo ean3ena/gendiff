@@ -16,3 +16,7 @@
 #### Сравнение файлов .json и .yml с вложенностью
 
 демонстрация - https://asciinema.org/a/ZoBtIQTCkMrAVz11vIFG5gHJ7
+
+#### Сравнение файлов .json и .yml (плоский формат)
+
+демонстрация - https://asciinema.org/a/AOjFi1FamYHCbZhYN5XUgHFZ7
