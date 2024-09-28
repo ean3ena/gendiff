@@ -12,3 +12,7 @@
 #### Сравнение плоских файлов .yaml
 
 демонстация - https://asciinema.org/a/jnege7tGp5kelZXEcdcccxXHc
+
+#### Сравнение файлов .json и .yml с вложенностью
+
+демонстрация - https://asciinema.org/a/ZoBtIQTCkMrAVz11vIFG5gHJ7
