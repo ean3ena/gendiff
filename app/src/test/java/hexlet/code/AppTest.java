@@ -39,7 +39,7 @@ class AppTest {
     public void testGenDiffWrongFileExtension() {
         Exception exception = assertThrows(
                 Exception.class, () -> Differ.generate(
-                        "src/test/resources/fixtures/fileWrongExtension.csv",
+                        "src/test/resources/fixtures/testFileWrongExtension.csv",
                         "src/test/resources/fixtures/file2.json"
                 )
         );
@@ -48,112 +48,88 @@ class AppTest {
 
     @Test
     public void testJsonGenDiffFormatDefault() throws Exception {
-        var actual1 = Differ.generate(
+        var actual = Differ.generate(
                 fixturesDirectoryPath + "file1.json",
                 fixturesDirectoryPath + "file2.json"
         );
-        var expected1 = getExpectedFileContent("stylish12.txt");
-        assertEquals(expected1, actual1);
-
-        var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.json",
-                fixturesDirectoryPath + "file4.json"
-        );
-        var expected2 = getExpectedFileContent("stylish34.txt");
-        assertEquals(expected2, actual2);
+        var expected = getExpectedFileContent("testStylish.txt");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testJsonGenDiffFormatStylish() throws Exception {
-        var actual1 = Differ.generate(
+        var actual = Differ.generate(
                 fixturesDirectoryPath + "file1.json",
                 fixturesDirectoryPath + "file2.json",
                 "stylish"
         );
-        var expected1 = getExpectedFileContent("stylish12.txt");
-        assertEquals(expected1, actual1);
-
-        var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.json",
-                fixturesDirectoryPath + "file4.json",
-                "stylish"
-        );
-        var expected2 = getExpectedFileContent("stylish34.txt");
-        assertEquals(expected2, actual2);
+        var expected = getExpectedFileContent("testStylish.txt");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testYamlGenDiffFormatDefault() throws Exception {
-        var actual1 = Differ.generate(
-                fixturesDirectoryPath + "file1.yaml",
-                fixturesDirectoryPath + "file2.yaml"
+        var actual = Differ.generate(
+                fixturesDirectoryPath + "file1.yml",
+                fixturesDirectoryPath + "file2.yml"
         );
-        var expected1 = getExpectedFileContent("stylish12.txt");
-        assertEquals(expected1, actual1);
-
-        var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.yml",
-                fixturesDirectoryPath + "file4.yml"
-        );
-        var expected2 = getExpectedFileContent("stylish34.txt");
-        assertEquals(expected2, actual2);
+        var expected = getExpectedFileContent("testStylish.txt");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testYamlGenDiffFormatStylish() throws Exception {
-        var actual1 = Differ.generate(
-                fixturesDirectoryPath + "file1.yaml",
-                fixturesDirectoryPath + "file2.yaml",
+        var actual = Differ.generate(
+                fixturesDirectoryPath + "file1.yml",
+                fixturesDirectoryPath + "file2.yml",
                 "stylish"
         );
-        var expected1 = getExpectedFileContent("stylish12.txt");
-        assertEquals(expected1, actual1);
-
-        var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.yml",
-                fixturesDirectoryPath + "file4.yml",
-                "stylish"
-        );
-        var expected2 = getExpectedFileContent("stylish34.txt");
-        assertEquals(expected2, actual2);
+        var expected = getExpectedFileContent("testStylish.txt");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testJsonGenDiffFormatPlain() throws Exception {
-        var actual1 = Differ.generate(
+        var actual = Differ.generate(
                 fixturesDirectoryPath + "file1.json",
                 fixturesDirectoryPath + "file2.json",
                 "plain"
         );
-        var expected1 = getExpectedFileContent("plain12.txt");
-        assertEquals(expected1, actual1);
-
-        var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.json",
-                fixturesDirectoryPath + "file4.json",
-                "plain"
-        );
-        var expected2 = getExpectedFileContent("plain34.txt");
-        assertEquals(expected2, actual2);
+        var expected = getExpectedFileContent("testPlain.txt");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testYamlGenDiffFormatPlain() throws Exception {
-        var actual1 = Differ.generate(
-                fixturesDirectoryPath + "file1.yaml",
-                fixturesDirectoryPath + "file2.yaml",
+        var actual = Differ.generate(
+                fixturesDirectoryPath + "file1.yml",
+                fixturesDirectoryPath + "file2.yml",
                 "plain"
         );
-        var expected1 = getExpectedFileContent("plain12.txt");
-        assertEquals(expected1, actual1);
+        var expected = getExpectedFileContent("testPlain.txt");
+        assertEquals(expected, actual);
+    }
 
-        var actual2 = Differ.generate(
-                fixturesDirectoryPath + "file3.yml",
-                fixturesDirectoryPath + "file4.yml",
-                "plain"
+    @Test
+    public void testJsonGenDiffFormatJson() throws Exception {
+        var actual = Differ.generate(
+                fixturesDirectoryPath + "file1.json",
+                fixturesDirectoryPath + "file2.json",
+                "json"
         );
-        var expected2 = getExpectedFileContent("plain34.txt");
-        assertEquals(expected2, actual2);
+        var expected = getExpectedFileContent("testJson.json");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testYamlGenDiffFormatJson() throws Exception {
+        var actual = Differ.generate(
+                fixturesDirectoryPath + "file1.yml",
+                fixturesDirectoryPath + "file2.yml",
+                "json"
+        );
+        var expected = getExpectedFileContent("testJson.json");
+        assertEquals(expected, actual);
     }
 
     private String getExpectedFileContent(String filename) throws Exception {
