@@ -25,7 +25,7 @@ preset-yaml-json:
 	@ ./build/install/app/bin/app  src/test/resources/fixtures/file1.yml src/test/resources/fixtures/file2.yml -f json
 
 run:
-	./gradlew run
+	./gradlew run --args="-h"
 
 test:
 	./gradlew test
