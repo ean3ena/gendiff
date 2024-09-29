@@ -8,7 +8,6 @@ import java.util.Map;
 public class Json {
 
     public static String format(List<Map<String, Object>> diff) throws Exception {
-
-       return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(diff);
+        return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(diff);
     }
 }
