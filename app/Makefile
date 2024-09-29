@@ -15,11 +15,14 @@ install:
 run-dist:
 	@ ./build/install/app/bin/app
 
-preset-json-34:
-	@ ./build/install/app/bin/app  src/test/resources/fixtures/file3.json src/test/resources/fixtures/file4.json
+preset-json-stylish:
+	@ ./build/install/app/bin/app  src/test/resources/fixtures/file1.json src/test/resources/fixtures/file2.json
 
-preset-yaml-34-plain:
-	@ ./build/install/app/bin/app  src/test/resources/fixtures/file3.yml src/test/resources/fixtures/file4.yml -f plain
+preset-yaml-plain:
+	@ ./build/install/app/bin/app  src/test/resources/fixtures/file1.yml src/test/resources/fixtures/file2.yml -f plain
+
+preset-yaml-json:
+	@ ./build/install/app/bin/app  src/test/resources/fixtures/file1.yml src/test/resources/fixtures/file2.yml -f json
 
 run:
 	./gradlew run
