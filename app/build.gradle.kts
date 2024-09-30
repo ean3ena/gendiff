@@ -24,6 +24,8 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
+    testImplementation("org.skyscreamer:jsonassert:2.0-rc1")
 }
 
 tasks.test {

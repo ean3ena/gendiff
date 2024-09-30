@@ -12,17 +12,17 @@ public class Plain {
         for (var elem : diff) {
             var status = (String) elem.get("status");
             var key = elem.get("key");
-            var oldValue = getTextByValue(elem.get("oldValue"));
-            var newValue = getTextByValue(elem.get("newValue"));
 
             switch (status) {
                 case "added" -> result.append("Property '").append(key)
-                        .append("' was added with value: ").append(newValue).append("\n");
+                        .append("' was added with value: ")
+                        .append(getTextByValue(elem.get("value"))).append("\n");
                 case "deleted" -> result.append("Property '").append(key)
                         .append("' was removed").append("\n");
                 case "changed" -> result.append("Property '").append(key)
-                        .append("' was updated. From ").append(oldValue)
-                        .append(" to ").append(newValue).append("\n");
+                        .append("' was updated. From ")
+                        .append(getTextByValue(elem.get("value1"))).append(" to ")
+                        .append(getTextByValue(elem.get("value2"))).append("\n");
                 default -> { }
             }
         }

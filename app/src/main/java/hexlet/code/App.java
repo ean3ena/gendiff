@@ -34,8 +34,13 @@ public final class App implements Callable<Object> {
 
     @Override
     public Object call() throws Exception {
-        var diff = Differ.generate(filepath1, filepath2, format);
-        System.out.println(diff);
-        return null;
+
+        try {
+            var diff = Differ.generate(filepath1, filepath2, format);
+            System.out.println(diff);
+        } catch (Exception e) {
+            return 1;
+        }
+        return 0;
     }
 }

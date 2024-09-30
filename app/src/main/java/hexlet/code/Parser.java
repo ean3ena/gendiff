@@ -4,39 +4,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, Object> parse(String filePath) throws Exception {
-
-        String fileContent = getFileContent(filePath);
-        String fileExtension = getFileExtension(filePath);
+    public static Map<String, Object> parse(String fileContent, String fileExtension) throws Exception {
 
         return switch (fileExtension) {
             case "json" -> parseJson(fileContent);
             case "yml", "yaml" -> parseYaml(fileContent);
-            default -> throw new Exception("Файл '" + filePath
-                                            + "' имеет неверное расширение");
+            default -> throw new Exception("Неверное расширение файла - " + fileExtension);
         };
-    }
-
-    private static String getFileExtension(String filePath) {
-        int lastIndexOfDot = filePath.lastIndexOf('.');
-        return filePath.substring(lastIndexOfDot + 1).toLowerCase();
-    }
-
-    private static String getFileContent(String filePath) throws Exception {
-
-        Path path = Paths.get(filePath).toAbsolutePath().normalize();
-        if (!Files.exists(path)) {
-            throw new Exception("Файл '" + filePath + "' не существует");
-        }
-
-        return Files.readString(path);
     }
 
     private static Map<String, Object> parseJson(String fileContent) throws Exception {

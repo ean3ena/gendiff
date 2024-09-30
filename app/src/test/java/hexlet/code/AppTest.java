@@ -4,7 +4,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -13,6 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class AppTest {
 
     private final String fixturesDirectoryPath = "src/test/resources/fixtures/";
+    private static String expectedStylish;
+    private static String expectedPlain;
+    private static String expectedJson;
+
+    @BeforeAll
+    public static void init() throws Exception {
+        expectedStylish = getExpectedFileContent("testStylish.txt");
+        expectedPlain = getExpectedFileContent("testPlain.txt");
+        expectedJson = getExpectedFileContent("testJson.json");
+    }
 
     @Test
     public void testGenDiffWrongFormat() throws Exception {
@@ -52,8 +65,7 @@ class AppTest {
                 fixturesDirectoryPath + "file1.json",
                 fixturesDirectoryPath + "file2.json"
         );
-        var expected = getExpectedFileContent("testStylish.txt");
-        assertEquals(expected, actual);
+        assertEquals(expectedStylish, actual);
     }
 
     @Test
@@ -63,8 +75,7 @@ class AppTest {
                 fixturesDirectoryPath + "file2.json",
                 "stylish"
         );
-        var expected = getExpectedFileContent("testStylish.txt");
-        assertEquals(expected, actual);
+        assertEquals(expectedStylish, actual);
     }
 
     @Test
@@ -73,8 +84,7 @@ class AppTest {
                 fixturesDirectoryPath + "file1.yml",
                 fixturesDirectoryPath + "file2.yml"
         );
-        var expected = getExpectedFileContent("testStylish.txt");
-        assertEquals(expected, actual);
+        assertEquals(expectedStylish, actual);
     }
 
     @Test
@@ -84,8 +94,7 @@ class AppTest {
                 fixturesDirectoryPath + "file2.yml",
                 "stylish"
         );
-        var expected = getExpectedFileContent("testStylish.txt");
-        assertEquals(expected, actual);
+        assertEquals(expectedStylish, actual);
     }
 
     @Test
@@ -95,8 +104,7 @@ class AppTest {
                 fixturesDirectoryPath + "file2.json",
                 "plain"
         );
-        var expected = getExpectedFileContent("testPlain.txt");
-        assertEquals(expected, actual);
+        assertEquals(expectedPlain, actual);
     }
 
     @Test
@@ -106,38 +114,35 @@ class AppTest {
                 fixturesDirectoryPath + "file2.yml",
                 "plain"
         );
-        var expected = getExpectedFileContent("testPlain.txt");
-        assertEquals(expected, actual);
+        assertEquals(expectedPlain, actual);
     }
 
     @Test
     public void testJsonGenDiffFormatJson() throws Exception {
-        var actual = Differ.generate(
+        var actualJson = Differ.generate(
                 fixturesDirectoryPath + "file1.json",
                 fixturesDirectoryPath + "file2.json",
                 "json"
         );
-        var expected = getExpectedFileContent("testJson.json");
-        assertEquals(expected, actual);
+        JSONAssert.assertEquals(expectedJson, actualJson, true);
     }
 
     @Test
     public void testYamlGenDiffFormatJson() throws Exception {
-        var actual = Differ.generate(
+        var actualJson = Differ.generate(
                 fixturesDirectoryPath + "file1.yml",
                 fixturesDirectoryPath + "file2.yml",
                 "json"
         );
-        var expected = getExpectedFileContent("testJson.json");
-        assertEquals(expected, actual);
+        JSONAssert.assertEquals(expectedJson, actualJson, true);
     }
 
-    private String getExpectedFileContent(String filename) throws Exception {
+    private static String getExpectedFileContent(String filename) throws Exception {
         Path fixturePath = getFixturePath(filename);
         return Files.readString(fixturePath);
     }
 
-    private Path getFixturePath(String fileName) {
+    private static Path getFixturePath(String fileName) {
         return Paths.get("src", "test", "resources", "fixtures", fileName)
                 .toAbsolutePath().normalize();
     }

@@ -1,11 +1,10 @@
 package hexlet.code;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.TreeSet;
 
 public class Differ {
 
@@ -15,53 +14,31 @@ public class Differ {
 
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
 
-        Map<String, Object> mapFileContent1 = Parser.parse(filepath1);
-        Map<String, Object> mapFileContent2 = Parser.parse(filepath2);
+        String fileContent1 = getFileContent(filepath1);
+        String fileExtension1 = getFileExtension(filepath1);
+        Map<String, Object> mapFileContent1 = Parser.parse(fileContent1, fileExtension1);
 
-        List<Map<String, Object>> diff = getDiff(mapFileContent1, mapFileContent2);
+        String fileContent2 = getFileContent(filepath2);
+        String fileExtension2 = getFileExtension(filepath2);
+        Map<String, Object> mapFileContent2 = Parser.parse(fileContent2, fileExtension2);
+
+        List<Map<String, Object>> diff = DiffBuilder.getDiff(mapFileContent1, mapFileContent2);
 
         return Formatter.format(diff, format);
     }
 
-    public static List<Map<String, Object>> getDiff(Map<String, Object> mapFile1, Map<String, Object> mapFile2) {
-
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        var allSortedKeys = new TreeSet<>(mapFile1.keySet());
-        allSortedKeys.addAll(mapFile2.keySet());
-
-        for (var key : allSortedKeys) {
-            if (!mapFile1.containsKey(key)) {
-                addElementInResult(result, "added",  key, null, mapFile2.get(key));
-            } else if (!mapFile2.containsKey(key)) {
-                addElementInResult(result, "deleted",  key, mapFile1.get(key), null);
-            } else {
-
-                var value1 = mapFile1.get(key);
-                var value2 = mapFile2.get(key);
-
-                if (Objects.equals(value1, value2)) {
-                    addElementInResult(result, "unchanged", key, value1, value2);
-                } else {
-                    addElementInResult(result, "changed", key, value1, value2);
-                }
-            }
-        }
-
-        return result;
+    private static String getFileExtension(String filePath) {
+        int lastIndexOfDot = filePath.lastIndexOf('.');
+        return filePath.substring(lastIndexOfDot + 1).toLowerCase();
     }
 
-    public static void addElementInResult(List<Map<String, Object>> resultList,
-                                                  String status, String key,
-                                                  Object oldValue, Object newValue) {
+    private static String getFileContent(String filePath) throws Exception {
 
-        var mapElement = new HashMap<String, Object>();
+        Path path = Paths.get(filePath).toAbsolutePath().normalize();
+        if (!Files.exists(path)) {
+            throw new Exception("Файл '" + filePath + "' не существует");
+        }
 
-        mapElement.put("status", status);
-        mapElement.put("key", key);
-        mapElement.put("oldValue", oldValue);
-        mapElement.put("newValue", newValue);
-
-        resultList.add(mapElement);
+        return Files.readString(path);
     }
 }
