@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Stylish {
 
-    public static String format(List<Map<String, Object>> diff) {
+    public static String format(List<Map<String, Object>> diff) throws Exception {
 
         StringBuilder result = new StringBuilder();
 
@@ -29,7 +29,7 @@ public class Stylish {
                     result.append("  + ").append(key).append(": ")
                             .append(elem.get("value2")).append("\n");
                 }
-                default -> { }
+                default -> throw new Exception("Неверный статус - " + status);
             }
         }
         result.append("}");

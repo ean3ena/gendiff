@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Plain {
 
-    public static String format(List<Map<String, Object>> diff) {
+    public static String format(List<Map<String, Object>> diff) throws Exception {
 
         StringBuilder result = new StringBuilder();
 
@@ -23,7 +23,7 @@ public class Plain {
                         .append("' was updated. From ")
                         .append(getTextByValue(elem.get("value1"))).append(" to ")
                         .append(getTextByValue(elem.get("value2"))).append("\n");
-                default -> { }
+                default -> throw new Exception("Неверный статус - " + status);
             }
         }
         return result.substring(0, result.length() - 1);

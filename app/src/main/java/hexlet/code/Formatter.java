@@ -15,7 +15,7 @@ public class Formatter {
             case "stylish" -> Stylish.format(diff);
             case "plain" -> Plain.format(diff);
             case "json" -> Json.format(diff);
-            default -> null;
+            default -> throw new Exception("Неверный формат - " + format);
         };
     }
 }
