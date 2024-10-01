@@ -23,6 +23,7 @@ public class Plain {
                         .append("' was updated. From ")
                         .append(getTextByValue(elem.get("value1"))).append(" to ")
                         .append(getTextByValue(elem.get("value2"))).append("\n");
+                case "unchanged" -> { }
                 default -> throw new Exception("Неверный статус - " + status);
             }
         }

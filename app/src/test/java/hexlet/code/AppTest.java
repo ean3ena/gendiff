@@ -10,7 +10,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AppTest {
@@ -28,13 +27,14 @@ class AppTest {
     }
 
     @Test
-    public void testGenDiffWrongFormat() throws Exception {
-        var actual = Differ.generate(
-                fixturesDirectoryPath + "file1.json",
-                fixturesDirectoryPath + "file2.json",
-                "wrongFormat"
+    public void testGenDiffWrongFormat() {
+        Exception exception = assertThrows(
+                Exception.class, () -> Differ.generate(
+                    fixturesDirectoryPath + "file1.json",
+                    fixturesDirectoryPath + "file2.json",
+                    "wrongFormat")
         );
-        assertNull(actual);
+        assertNotNull(exception.getMessage());
     }
 
     @Test
