@@ -18,31 +18,25 @@ public class DiffBuilder {
 
         for (var key : allSortedKeys) {
 
+            var value1 = mapFile1.get(key);
+            var value2 = mapFile2.get(key);
+
             var elem = new HashMap<String, Object>();
+            elem.put("key", key);
 
             if (!mapFile1.containsKey(key)) {
                 elem.put("status", "added");
-                elem.put("key", key);
-                elem.put("value", mapFile2.get(key));
+                elem.put("value", value2);
             } else if (!mapFile2.containsKey(key)) {
                 elem.put("status", "deleted");
-                elem.put("key", key);
-                elem.put("value", mapFile1.get(key));
+                elem.put("value", value1);
+            } else if (Objects.equals(value1, value2)) {
+                elem.put("status", "unchanged");
+                elem.put("value", value1);
             } else {
-
-                var value1 = mapFile1.get(key);
-                var value2 = mapFile2.get(key);
-
-                if (Objects.equals(value1, value2)) {
-                    elem.put("status", "unchanged");
-                    elem.put("key", key);
-                    elem.put("value", value1);
-                } else {
-                    elem.put("status", "changed");
-                    elem.put("key", key);
-                    elem.put("value1", value1);
-                    elem.put("value2", value2);
-                }
+                elem.put("status", "changed");
+                elem.put("value1", value1);
+                elem.put("value2", value2);
             }
             result.add(elem);
         }
